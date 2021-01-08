@@ -1,0 +1,22 @@
+# misc
+.vscode
+.DS_Store
+.env
+
+# testing
+/coverage
+
+# package directories
+node_modules
+jspm_packages
+
+# Serverless directories
+.serverless
+
+# Webpack directories
+.webpack
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
