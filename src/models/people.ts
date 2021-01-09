@@ -2,9 +2,7 @@ import * as dynamoose from 'dynamoose'
 import { Document } from 'dynamoose/dist/Document'
 import { ModelType } from 'dynamoose/dist/General'
 
-const TABLE_NAME = 'people'
-
-export interface People {
+export class People extends Document {
   id: string
   nombre: string
   genero: string
@@ -25,12 +23,12 @@ export interface People {
 }
 
 const schema = new dynamoose.Schema({
-  id: {
+  name: {
     type: String,
     hashKey: true,
   },
 })
 
-export default dynamoose.model(TABLE_NAME, schema) as ModelType<
-  People & Document
->
+export default dynamoose.model(process.env.PEOPLE_TABLE, schema, {
+  create: false,
+}) as ModelType<People>

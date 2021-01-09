@@ -4,7 +4,7 @@
   "description": "Serverless Start Wars Api",
   "main": "serverless.ts",
   "scripts": {
-    "start": "sls offline start --httpPort 3000",
+    "start": "sls offline start --httpPort 3000 --stage dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -21,6 +21,7 @@
     "json-schema-to-ts": "^1.4.1",
     "serverless": "^2.18.0",
     "serverless-dotenv-plugin": "^3.1.0",
+    "serverless-dynamodb-local": "^0.2.37",
     "serverless-offline": "^6.8.0",
     "serverless-webpack": "^5.2.0",
     "ts-loader": "^8.0.14",

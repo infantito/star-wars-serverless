@@ -15,10 +15,33 @@ const serverlessConfiguration: AWS = {
       webpackConfig: './webpack.config.js',
       includeModules: true,
     },
+    dynamodb: {
+      start: {
+        stages: [`\${self:provider.stage}`],
+        port: 8000,
+        dbPath: './offline/dynamodb',
+        migration: true,
+        seed: true,
+      },
+      seed: {
+        dev: {
+          sources: [
+            {
+              table: 'People',
+              sources: ['./offline/dynamodb/people.json'],
+            },
+          ],
+        },
+      },
+    },
+    'serverless-offline': {
+      useChildProcesses: true,
+    },
   },
   plugins: [
     'serverless-webpack',
     'serverless-dotenv-plugin',
+    'serverless-dynamodb-local',
     'serverless-offline',
   ],
   provider: {
@@ -32,7 +55,7 @@ const serverlessConfiguration: AWS = {
     },
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
-      PEOPLE_DYNAMO_TABLE: '${self:service}-People-${opt:stage}',
+      PEOPLE_TABLE: process.env.PEOPLE_TABLE,
     },
     iamRoleStatements: [
       {
@@ -57,14 +80,14 @@ const serverlessConfiguration: AWS = {
     Resources: {
       PeopleTable: {
         Type: 'AWS::DynamoDB::Table',
-        DeletionPolicy: 'Retain',
         Properties: {
-          TableName: `\${self:service}-people-\${opt:stage}`,
-          AttributeDefinitions: [
-            { AttributeName: 'peopleId', AttributeType: 'S' },
-          ],
-          KeySchema: [{ AttributeName: 'peopleId', KeyType: 'HASH' }],
-          BillingMode: 'PAY_PER_REQUEST',
+          TableName: `\${self:provider.environment.PEOPLE_TABLE}`,
+          AttributeDefinitions: [{ AttributeName: 'name', AttributeType: 'S' }],
+          KeySchema: [{ AttributeName: 'name', KeyType: 'HASH' }],
+          ProvisionedThroughput: {
+            ReadCapacityUnits: 1,
+            WriteCapacityUnits: 1,
+          },
         },
       },
     },
