@@ -8,6 +8,7 @@ import * as functions from './src/functions'
  */
 const serverlessConfiguration: AWS = {
   service: 'star-wars-api',
+  useDotenv: true,
   frameworkVersion: '2',
   custom: {
     webpack: {
@@ -15,23 +16,59 @@ const serverlessConfiguration: AWS = {
       includeModules: true,
     },
   },
-  plugins: ['serverless-webpack', 'serverless-offline'],
+  plugins: [
+    'serverless-webpack',
+    'serverless-dotenv-plugin',
+    'serverless-offline',
+  ],
   provider: {
     name: 'aws',
     runtime: 'nodejs12.x',
+    stage: 'dev',
+    region: 'us-east-1',
     apiGateway: {
       minimumCompressionSize: 1024,
       shouldStartNameWithService: true,
     },
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
+      PEOPLE_DYNAMO_TABLE: '${self:service}-People-${opt:stage}',
     },
+    iamRoleStatements: [
+      {
+        Effect: 'Allow',
+        Action: [
+          'dynamodb:DescribeTable',
+          'dynamodb:Query',
+          'dynamodb:Scan',
+          'dynamodb:GetItem',
+          'dynamodb:PutItem',
+          'dynamodb:UpdateItem',
+          'dynamodb:DeleteItem',
+        ],
+        Resource:
+          'arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/*',
+      },
+    ],
     lambdaHashingVersion: '20201221',
   },
-  package: {
-    individually: true,
-  },
   functions: { ...functions },
+  resources: {
+    Resources: {
+      PeopleTable: {
+        Type: 'AWS::DynamoDB::Table',
+        DeletionPolicy: 'Retain',
+        Properties: {
+          TableName: `\${self:service}-people-\${opt:stage}`,
+          AttributeDefinitions: [
+            { AttributeName: 'peopleId', AttributeType: 'S' },
+          ],
+          KeySchema: [{ AttributeName: 'peopleId', KeyType: 'HASH' }],
+          BillingMode: 'PAY_PER_REQUEST',
+        },
+      },
+    },
+  },
 }
 
 module.exports = serverlessConfiguration
