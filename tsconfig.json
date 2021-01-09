@@ -7,7 +7,7 @@
     "noUnusedParameters": true,
     "esModuleInterop": true,
     "removeComments": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "target": "ESNext",
     "outDir": "lib"
   },

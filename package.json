@@ -10,6 +10,7 @@
   "dependencies": {
     "@middy/core": "^1.5.0",
     "@middy/http-json-body-parser": "^1.5.0",
+    "dynamoose": "^2.5.0",
     "source-map-support": "^0.5.19"
   },
   "devDependencies": {
@@ -19,6 +20,7 @@
     "fork-ts-checker-webpack-plugin": "^6.0.0",
     "json-schema-to-ts": "^1.4.1",
     "serverless": "^2.18.0",
+    "serverless-dotenv-plugin": "^3.1.0",
     "serverless-offline": "^6.8.0",
     "serverless-webpack": "^5.2.0",
     "ts-loader": "^8.0.14",
