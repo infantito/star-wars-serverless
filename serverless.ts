@@ -28,6 +28,9 @@ const serverlessConfiguration: AWS = {
     },
     lambdaHashingVersion: '20201221',
   },
+  package: {
+    individually: true,
+  },
   functions: { ...functions },
 }
 
