@@ -1,6 +1,6 @@
 import type { AWS } from '@serverless/typescript'
 
-import { hello } from './src/functions'
+import * as functions from './src/functions'
 
 /**
  * IAMCredential
@@ -28,7 +28,7 @@ const serverlessConfiguration: AWS = {
     },
     lambdaHashingVersion: '20201221',
   },
-  functions: { hello },
+  functions: { ...functions },
 }
 
 module.exports = serverlessConfiguration

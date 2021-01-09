@@ -4,7 +4,7 @@
   "description": "Serverless Start Wars Api",
   "main": "serverless.ts",
   "scripts": {
-    "dev": "sls offline start --httpPort 3000",
+    "start": "sls offline start --httpPort 3000",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

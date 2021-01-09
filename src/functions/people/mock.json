@@ -1,0 +1,39 @@
+{
+  "post": {
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": "{\"name\": \"Frederic\"}"
+  },
+  "get": {
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "fecha_nacimiento": "19 BBY",
+      "color_ojo": "Blue",
+      "peliculas": [
+        "https://swapi.py4e.com/api/films/1/"
+      ],
+      "genero": "Male",
+      "color_cabello": "Blond",
+      "altura": "172",
+      "planeta_natal": "https://swapi.py4e.com/api/planets/1/",
+      "peso": "77",
+      "nombre": "Luke Skywalker",
+      "color_piel": "Fair",
+      "fecha_creacion": "2014-12-09T13:50:51.644000Z",
+      "fecha_edicion": "2014-12-10T13:52:43.172000Z",
+      "especies": [
+        "https://swapi.py4e.com/api/species/1/"
+      ],
+      "naves_estelares": [
+        "https://swapi.py4e.com/api/starships/12/"
+      ],
+      "url": "https://swapi.py4e.com/api/people/1/",
+      "vehiculos": [
+        "https://swapi.py4e.com/api/vehicles/14/"
+      ]
+    }
+  }
+}
