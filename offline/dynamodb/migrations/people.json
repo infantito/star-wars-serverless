@@ -1,17 +1,11 @@
 {
   "Table": {
-    "TableName": "star-wars-people",
-    "KeySchema": [
-      {
-        "AttributeName": "name",
-        "KeyType": "HASH"
-      }
-    ],
+    "TableName": "People",
     "AttributeDefinitions": [
-      {
-        "AttributeName": "name",
-        "AttributeType": "S"
-      }
+      { "AttributeName": "id", "AttributeType": "S" }
+    ],
+    "KeySchema": [
+        { "AttributeName": "id", "KeyType": "HASH" }
     ],
     "ProvisionedThroughput": {
       "ReadCapacityUnits": 1,

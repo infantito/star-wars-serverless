@@ -1,6 +1,9 @@
 import type { AWS } from '@serverless/typescript'
 
 import * as functions from './src/functions'
+import people from './offline/dynamodb/migrations/people.json'
+
+const PeopleTableSettings = people.Table
 
 /**
  * IAMCredential
@@ -69,6 +72,7 @@ const serverlessConfiguration: AWS = {
           'dynamodb:Scan',
           'dynamodb:GetItem',
           'dynamodb:PutItem',
+          'dynamodb:UpdateTable',
         ],
         Resource: '*',
       },
@@ -81,13 +85,8 @@ const serverlessConfiguration: AWS = {
       PeopleTable: {
         Type: 'AWS::DynamoDB::Table',
         Properties: {
+          ...PeopleTableSettings,
           TableName: `\${self:provider.environment.PEOPLE_TABLE}`,
-          AttributeDefinitions: [{ AttributeName: 'name', AttributeType: 'S' }],
-          KeySchema: [{ AttributeName: 'name', KeyType: 'HASH' }],
-          ProvisionedThroughput: {
-            ReadCapacityUnits: 1,
-            WriteCapacityUnits: 1,
-          },
         },
       },
     },
