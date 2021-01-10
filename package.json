@@ -6,7 +6,7 @@
   "scripts": {
     "start": "sls offline start --httpPort 3000",
     "debug": "node --inspect ./node_modules/.bin/sls offline start --httpPort 3000",
-    "test": "jest --verbose"
+    "test": "jest"
   },
   "dependencies": {
     "@middy/core": "^1.5.0",

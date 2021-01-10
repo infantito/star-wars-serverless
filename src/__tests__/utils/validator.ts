@@ -1,6 +1,4 @@
-export const isApiGatewayResponse = response => {
-  console.log({ response })
-
+export const isApiGatewayResponse = (response: any) => {
   const { body, headers, statusCode } = response
 
   if (!body || !headers || !statusCode) return false
@@ -17,7 +15,7 @@ export const isApiGatewayResponse = response => {
 export const isCorrectHeaders = headers => {
   if (headers['Content-Type'] !== 'application/json') return false
 
-  if (headers['Access-Control-Allow-Methods'] !== '*') return false
+  if (headers['Access-Control-Allow-Credentials'] !== true) return false
 
   if (headers['Access-Control-Allow-Origin'] !== '*') return false
 

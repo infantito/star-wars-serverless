@@ -14,9 +14,15 @@ const create: ValidatedEventAPIGatewayProxyEvent<
 > = async event => {
   let response = null
 
-  const now = new Date().toISOString()
+  let isBadRequest = (event.body ? Object.values(event.body) : []).length === 0
 
   try {
+    if (isBadRequest) {
+      throw new Error('Campos incorrectos')
+    }
+
+    const now = new Date().toISOString()
+
     const id: string = uuid()
 
     await dynamodb
@@ -37,7 +43,7 @@ const create: ValidatedEventAPIGatewayProxyEvent<
       error: error.message,
     }
   } finally {
-    return formatJSONResponse(response)
+    return formatJSONResponse(response, isBadRequest ? 400 : void 0)
   }
 }
 
