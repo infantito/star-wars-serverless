@@ -24,7 +24,7 @@ sls dynamodb install
 sls dynamodb executeAll
 ```
 
-Click (aquí)[https://www.serverless.com/plugins/serverless-dynamodb-local] para más detalles
+Click [aquí](https://www.serverless.com/plugins/serverless-dynamodb-local) para más detalles
 
 
 ### Iniciar proyecto localmente
@@ -33,7 +33,7 @@ Click (aquí)[https://www.serverless.com/plugins/serverless-dynamodb-local] para
 npm start
 ```
 
-Visitar: (http://localhost:8000)[http://localhost:8000]
+Visitar: [http://localhost:8000](http://localhost:8000)
 
 ### Ejecutar tests
 
@@ -55,7 +55,7 @@ npm run test
 ### Despliegue
 
 Tener en cuenta instalar `serverless` de manera global o usar `npx`.
-También deber tener un usuario con los permisos correspondientes. (IAM)[https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/introduction.html]
+También deber tener un usuario con los permisos correspondientes. [IAM](https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/introduction.html)
 
 ```sh
 sls deploy
@@ -63,4 +63,6 @@ sls deploy
 
 ### Para más detalles
 
-Revisar (TEMPLATE.md)[https://github.com/infantito/star-wars-serverless/blob/master/TEMPLATE.md]
+Revisar [TEMPLATE.md](https://github.com/infantito/star-wars-serverless/blob/master/TEMPLATE.md)
+
+- [API Doc Swagger](https://app.swaggerhub.com/apis-docs/infantito/star-wars/1.0.0)
