@@ -63,4 +63,4 @@ sls deploy
 
 ### Para más detalles
 
-Revisar (TEMPLATE.md)[https://github.com/infantito/star-wars-serverless/blob/master/README.md]
+Revisar (TEMPLATE.md)[https://github.com/infantito/star-wars-serverless/blob/master/TEMPLATE.md]
