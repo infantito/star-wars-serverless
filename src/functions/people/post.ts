@@ -3,21 +3,25 @@ import 'source-map-support/register'
 import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/api-gateway'
 import { formatJSONResponse } from '@libs/api-gateway'
 import { middyfy } from '@libs/lambda'
+import dynamodb from '@libs/dynamodb'
 
 import schema from './schema'
-import People from '@models/people'
+// import People from '@models/people'
 
 const create: ValidatedEventAPIGatewayProxyEvent<
   typeof schema
 > = async event => {
   try {
-    const people = new People({
-      name: Date.now().toString(36),
-    })
+    const response = await dynamodb
+      .put({
+        TableName: process.env.PEOPLE_TABLE,
+        Item: {
+          name: Date.now().toString(36),
+        },
+      })
+      .promise()
 
-    const result = await people.save()
-
-    console.log({ result })
+    console.log({ response })
   } catch (error) {
     console.error({ error })
   } finally {

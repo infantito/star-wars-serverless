@@ -1,8 +1,8 @@
-import * as dynamoose from 'dynamoose'
-import { Document } from 'dynamoose/dist/Document'
-import { ModelType } from 'dynamoose/dist/General'
+import aws from 'aws-sdk'
 
-export class People extends Document {
+const dynamodb = new aws.DynamoDB({ region: process.env.SERVERLESS_REGION })
+
+export interface People {
   id: string
   nombre: string
   genero: string
@@ -22,13 +22,33 @@ export class People extends Document {
   fecha_edicion: string
 }
 
-const schema = new dynamoose.Schema({
-  name: {
-    type: String,
-    hashKey: true,
-  },
-})
+const createTable = async () => {
+  await dynamodb
+    .createTable({
+      AttributeDefinitions: [
+        {
+          AttributeName: 'name',
+          AttributeType: 'S',
+        },
+      ],
+      KeySchema: [
+        {
+          AttributeName: 'name',
+          KeyType: 'HASH',
+        },
+      ],
+      BillingMode: 'PROVISIONED',
+      ProvisionedThroughput: {
+        ReadCapacityUnits: 5,
+        WriteCapacityUnits: 10,
+      },
+      TableName: 'People',
+    })
+    .promise()
 
-export default dynamoose.model(process.env.PEOPLE_TABLE, schema, {
-  create: false,
-}) as ModelType<People>
+  await dynamodb.waitFor('tableExists', { TableName: 'People' }).promise()
+
+  console.log('Table has been created, please continue to insert data')
+}
+
+createTable().catch(error => console.error(JSON.stringify(error, null, 2)))

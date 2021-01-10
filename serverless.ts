@@ -16,18 +16,21 @@ const serverlessConfiguration: AWS = {
       includeModules: true,
     },
     dynamodb: {
+      stages: [`\${self:provider.stage}`],
       start: {
-        stages: [`\${self:provider.stage}`],
         port: 8000,
-        dbPath: './offline/dynamodb',
-        migration: true,
+        inMemory: true,
+        migrate: true,
         seed: true,
+      },
+      migration: {
+        dir: 'offline/dynamodb/migrations',
       },
       seed: {
         dev: {
           sources: [
             {
-              table: 'People',
+              table: `\${self:provider.environment.PEOPLE_TABLE}`,
               sources: ['./offline/dynamodb/people.json'],
             },
           ],
@@ -55,22 +58,19 @@ const serverlessConfiguration: AWS = {
     },
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
-      PEOPLE_TABLE: process.env.PEOPLE_TABLE,
+      PEOPLE_TABLE: 'People',
+      // REGION: `\${opt:region, self:provider.region}`,
     },
     iamRoleStatements: [
       {
         Effect: 'Allow',
         Action: [
-          'dynamodb:DescribeTable',
           'dynamodb:Query',
           'dynamodb:Scan',
           'dynamodb:GetItem',
           'dynamodb:PutItem',
-          'dynamodb:UpdateItem',
-          'dynamodb:DeleteItem',
         ],
-        Resource:
-          'arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/*',
+        Resource: '*',
       },
     ],
     lambdaHashingVersion: '20201221',
