@@ -35,6 +35,8 @@ npm start
 
 Visitar: [http://localhost:8000](http://localhost:8000)
 
+Producción: [star-wars](https://infantito.github.io/star-wars-serverless/)
+
 ### Ejecutar tests
 
 Debes tener en cuenta que el servidor esté funcionando
