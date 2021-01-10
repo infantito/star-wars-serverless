@@ -27,7 +27,7 @@ export const get = {
     {
       http: {
         method: 'get',
-        path: 'people',
+        path: 'people/{id}',
         cors: true,
       },
     },
