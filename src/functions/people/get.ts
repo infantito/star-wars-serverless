@@ -1,4 +1,4 @@
-import 'source-map-support/register'
+// import 'source-map-support/register'
 
 import fetch from 'node-fetch'
 
@@ -31,7 +31,11 @@ const get: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async event => {
 
       const request = await fetch(endpoint)
 
-      response = await request.json()
+      const json = await request.json()
+
+      if (!json.error) {
+        response = json
+      }
     }
   } catch (error) {
     response = {

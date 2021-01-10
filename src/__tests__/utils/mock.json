@@ -3,7 +3,22 @@
     "headers": {
       "Content-Type": "application/json"
     },
-    "body": "{\"name\": \"Frederic\"}"
+    "body": {
+      "nombre": "Luke Skywalker",
+      "genero": "Male",
+      "peliculas": "https://swapi.py4e.com/api/films/1/",
+      "color_ojo": "azul",
+      "color_cabello": "Marrón",
+      "color_piel": "Marrón",
+      "altura": "172",
+      "peso": "77",
+      "planeta_natal": "https://swapi.py4e.com/api/planets/1/",
+      "especies": "https://swapi.py4e.com/api/species/1/",
+      "naves_estelares": "https://swapi.py4e.com/api/starships/12/",
+      "vehiculos": "https://swapi.py4e.com/api/vehicles/14/",
+      "url": "https://swapi.py4e.com/api/people/1/",
+      "fecha_nacimiento": "10/10/1990"
+    }
   },
   "get": {
     "headers": {

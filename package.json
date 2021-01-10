@@ -5,8 +5,8 @@
   "main": "serverless.ts",
   "scripts": {
     "start": "sls offline start --httpPort 3000",
-    "debug": "node --inspect ./node_modules/.bin/sls offline start",
-    "test": "jest"
+    "debug": "node --inspect ./node_modules/.bin/sls offline start --httpPort 3000",
+    "test": "jest --verbose"
   },
   "dependencies": {
     "@middy/core": "^1.5.0",
@@ -52,13 +52,17 @@
     "testPathIgnorePatterns": [
       "/node_modules/",
       ".dist/",
-      "<rootDir>/__tests__/"
+      "<rootDir>/__tests__/",
+      "/utils"
     ],
     "moduleFileExtensions": [
       "js",
       "json",
       "ts",
       "node"
-    ]
+    ],
+    "moduleNameMapper": {
+      "^@libs(.*)$": "<rootDir>/src/libs$1"
+    }
   }
 }
